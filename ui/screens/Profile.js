@@ -9,11 +9,12 @@ import CButton from '../widgets/Button';
 import PaymentMethod from '../widgets/PaymentMethod';
 import {clearErrors} from 'react-native/Libraries/LogBox/Data/LogBoxData';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-import AddressDetails from '../widgets/AddressDetails';
+import PersonalDetails from '../widgets/PersonalDetails';
+import ProfileOptions from '../widgets/ProfileOptions';
 
 const Search = ({navigation}) => {
   const pressFunction = () => {
-    navigation.navigate('Payment');
+    navigation.navigate('ForYou');
   };
   const backButton = () => {
     navigation.goBack();
@@ -21,15 +22,15 @@ const Search = ({navigation}) => {
   return (
     <View style={styles.basicLayout}>
       <View style={styles.view1}>
-        <BacknHeading title={'Checkout'} backButton={backButton} />
+        <BacknHeading title={'Profile'} backButton={backButton} />
       </View>
       <View style={styles.view2}>
         <View style={styles.titleView}>
-          <Text style={styles.title}>Delivery</Text>
+          <Text style={styles.title}>My profile</Text>
         </View>
-        <View style={styles.addressDetails}>
+        <View style={styles.profileDetails}>
           <View style={styles.textGroup}>
-            <Text style={styles.text}>Address details</Text>
+            <Text style={styles.text}>Personal details</Text>
             <Pressable
               children={({pressed}) => (
                 <Text style={[{color: pressed ? '#535353' : '#FF3144'}]}>
@@ -38,18 +39,38 @@ const Search = ({navigation}) => {
               )}
             />
           </View>
-          <AddressDetails />
+          <PersonalDetails />
         </View>
-        <View style={styles.deliveryoptions}>
-          <Text style={styles.text}>Delivery Options</Text>
-          <DeliveryOptions />
-        </View>
-        <View style={styles.total}>
-          <Text style={{fontSize: 17}}>Total</Text>
-          <Text style={{fontSize: 18}}>23,000</Text>
-        </View>
+        <Pressable
+          children={({pressed}) => (
+            <View style={styles.profileOptions}>
+              <ProfileOptions title={'Orders'} />
+            </View>
+          )}
+        />
+        <Pressable
+          children={({pressed}) => (
+            <View style={styles.profileOptions}>
+              <ProfileOptions title={'Pending reviews'} />
+            </View>
+          )}
+        />
+        <Pressable
+          children={({pressed}) => (
+            <View style={styles.profileOptions}>
+              <ProfileOptions title={'Faq'} />
+            </View>
+          )}
+        />
+        <Pressable
+          children={({pressed}) => (
+            <View style={styles.profileOptions}>
+              <ProfileOptions title={'Help'} />
+            </View>
+          )}
+        />
       </View>
-      <CButton title="Proceed to payment" pressFunction={pressFunction} />
+      <CButton title="Update" pressFunction={pressFunction} />
     </View>
   );
 };
@@ -80,17 +101,11 @@ const styles = StyleSheet.create({
     paddingLeft: 7,
     fontSize: 16,
   },
-  deliveryoptions: {
-    marginBottom: 20,
+  profileOptions: {
+    marginBottom: 10,
   },
-  addressDetails: {
+  profileDetails: {
     marginBottom: 30,
-  },
-  total: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 300,
-    marginTop: 20,
   },
   textGroup: {
     flexDirection: 'row',

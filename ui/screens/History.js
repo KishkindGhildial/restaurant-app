@@ -8,16 +8,20 @@ import nointernet from '../../assets/nointernet.png';
 import noorder from '../../assets/noorder.png';
 import noresult from '../../assets/noresult.png';
 
-const Search = ({id}) => {
+const History = ({route, navigation}) => {
   const header = ['History', 'Orders'];
   const icon = [nohistory, noorder];
   const title = ['No history yet', 'No orders yet'];
-  console.log(id);
+  const {id} = route.params;
+  const backButton = () => {
+    navigation.goBack();
+  };
+
   return (
     <>
       <View style={styles.basicLayout}>
         <View style={styles.view1}>
-          <BacknHeading title={header[id]} />
+          <BacknHeading title={header[id]} backButton={backButton} />
         </View>
         <View style={styles.view2}>
           <View
@@ -33,7 +37,7 @@ const Search = ({id}) => {
           </Text>
         </View>
       </View>
-      <CButton title={'Start Ordering'} />
+      <CButton title={'Start Ordering'} pressFunction={backButton} />
     </>
   );
 };
@@ -60,11 +64,10 @@ const styles = StyleSheet.create({
   text: {
     width: 230,
     textAlign: 'center',
-    fontWeight: 400,
     fontSize: 17,
     lineHeight: 20,
     opacity: 0.57,
   },
 });
 
-export default Search;
+export default History;

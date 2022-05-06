@@ -2,11 +2,12 @@ import React, {useState} from 'react';
 import LoginSignup from '../widgets/LoginSignup';
 import Signup from '../widgets/Signup';
 import Login from '../widgets/Login';
-import Button from '../widgets/Button';
+import CButton from '../widgets/Button';
 import {View, StyleSheet} from 'react-native';
 import FoodCard from '../widgets/FoodCard';
+import {NavigationContainer} from '@react-navigation/native';
 
-export default UserAuthenticationPage = () => {
+export default UserAuthenticationPage = ({navigation}) => {
   const styles = StyleSheet.create({
     view1: {
       flex: 7,
@@ -24,7 +25,9 @@ export default UserAuthenticationPage = () => {
   // const changeLoginSignup = option => {
   //   setSelected(option);
   // };
-
+  const pressFunction = () => {
+    navigation.navigate('ForYou');
+  };
   return (
     <View style={styles.basicLayout}>
       <View style={styles.view1}>
@@ -36,7 +39,7 @@ export default UserAuthenticationPage = () => {
       <View style={styles.view2}>
         {selected === 1 ? <Login /> : <Signup />}
       </View>
-      <Button title="Get Started" />
+      <CButton title="Get Started" pressFunction={pressFunction} />
     </View>
   );
 };

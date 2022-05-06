@@ -1,3 +1,4 @@
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {
   StyleSheet,
@@ -12,7 +13,7 @@ import face1 from '../../assets/face1.png';
 import face2 from '../../assets/face2.png';
 import MiniLogo from '../../assets/MiniLogo.png';
 
-export default LandingPage = () => {
+export default LandingPage = ({navigation}) => {
   return (
     <>
       <View style={styles.barStyle}></View>
@@ -50,16 +51,8 @@ export default LandingPage = () => {
           />
         </View>
         <View style={styles.buttonView}>
-          {/* <Pressable
-            style={({pressed}) => [
-              {
-                color: pressed ? '#FF3128' : 'white',
-              },
-              styles.buttonStyle,
-            ]}>
-            <Text style={styles.buttonText}>Get Started</Text>
-          </Pressable> */}
           <Pressable
+            onPress={() => navigation.navigate('UserAuthenticationPage')}
             children={({pressed}) => (
               <Text
                 style={[

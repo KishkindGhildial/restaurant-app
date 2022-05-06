@@ -8,16 +8,15 @@ import nointernet from '../../assets/nointernet.png';
 import noorder from '../../assets/noorder.png';
 import noresult from '../../assets/noresult.png';
 
-const Search = ({id}) => {
-  const header = ['History', 'Orders'];
-  const icon = [nohistory, noorder];
-  const title = ['No history yet', 'No orders yet'];
-  console.log(id);
+const Search = ({navigation}) => {
+  const pressFunction = () => {
+    navigation.goBack();
+  };
   return (
     <>
       <View style={styles.basicLayout}>
         <View style={styles.view1}>
-          <BacknHeading title={'My Offers'} />
+          <BacknHeading title={'My Offers'} backButton={pressFunction} />
         </View>
         <View style={styles.view2}>
           <Text style={styles.title}>ohh snap! No offers yet</Text>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Button, Text, ScrollView} from 'react-native';
+import {View, StyleSheet, Button, Text, ScrollView, Image} from 'react-native';
 import FoodCard from '../widgets/FoodCard';
 import BacknHeading from '../widgets/BacknHeading';
 import Found from '../widgets/Found';
@@ -8,10 +8,12 @@ import DeliveryOptions from '../widgets/DeliveryOptions';
 import CButton from '../widgets/Button';
 import PaymentMethod from '../widgets/PaymentMethod';
 import {clearErrors} from 'react-native/Libraries/LogBox/Data/LogBoxData';
+import CartItems from '../widgets/CartItems';
+import swipe from '../../assets/swip.png';
 
 const Search = ({navigation}) => {
   const pressFunction = () => {
-    navigation.navigate('OrderComplete');
+    navigation.navigate('Delivery');
   };
   const backButton = () => {
     navigation.goBack();
@@ -19,26 +21,26 @@ const Search = ({navigation}) => {
   return (
     <View style={styles.basicLayout}>
       <View style={styles.view1}>
-        <BacknHeading title={'Checkout'} backButton={backButton} />
+        <BacknHeading title={'Cart'} backButton={backButton} />
       </View>
       <View style={styles.view2}>
         <View style={styles.titleView}>
-          <Text style={styles.title}>Payment</Text>
+          <Image source={swipe} />
+          <Text style={styles.text}>Swipe on an item to delete</Text>
         </View>
-        <View style={styles.paymentmethod}>
-          <Text style={styles.text}>Payment Method</Text>
-          <PaymentMethod />
-        </View>
-        <View style={styles.deliveryoptions}>
-          <Text style={styles.text}>Delivery Options</Text>
-          <DeliveryOptions />
-        </View>
-        <View style={styles.total}>
-          <Text style={{fontSize: 17}}>Total</Text>
-          <Text style={{fontSize: 18}}>23,000</Text>
-        </View>
+        <ScrollView>
+          <View style={styles.cartItemsView}>
+            <CartItems />
+          </View>
+          <View style={styles.cartItemsView}>
+            <CartItems />
+          </View>
+          <View style={styles.cartItemsView}>
+            <CartItems />
+          </View>
+        </ScrollView>
       </View>
-      <CButton title="Place Order" pressFunction={pressFunction} />
+      <CButton title="Complete Order" pressFunction={pressFunction} />
     </View>
   );
 };
@@ -58,28 +60,17 @@ const styles = StyleSheet.create({
   },
   titleView: {
     width: 315,
+    flexDirection: 'row',
     justifyContent: 'center',
-  },
-  title: {
-    fontSize: 34,
-    marginBottom: 20,
+    marginVertical: 25,
   },
   text: {
-    marginVertical: 20,
-    paddingLeft: 7,
-    fontSize: 16,
+    marginTop: 5,
+    marginHorizontal: 5,
+    fontSize: 10,
   },
-  deliveryoptions: {
-    marginBottom: 20,
-  },
-  paymentmethod: {
-    marginBottom: 30,
-  },
-  total: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: 300,
-    marginTop: 20,
+  cartItemsView: {
+    marginBottom: 15,
   },
 });
 

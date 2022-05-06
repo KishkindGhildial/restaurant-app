@@ -3,11 +3,14 @@ import {View, StyleSheet, Button, Text, ScrollView} from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import {clearErrors} from 'react-native/Libraries/LogBox/Data/LogBoxData';
 
-const BacknHeading = ({title}) => {
+const BacknHeading = ({title, backButton}) => {
   return (
     <View style={styles.view}>
       <View style={styles.header}>
         <Pressable
+          onPress={() => {
+            backButton();
+          }}
           children={({pressed}) => (
             <Text
               style={[

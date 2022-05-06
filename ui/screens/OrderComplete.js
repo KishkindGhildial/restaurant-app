@@ -8,7 +8,10 @@ import nointernet from '../../assets/nointernet.png';
 import noorder from '../../assets/noorder.png';
 import noresult from '../../assets/noresult.png';
 
-const Search = () => {
+const OrderComplete = ({navigation}) => {
+  const pressFunction = () => {
+    navigation.navigate('ForYou');
+  };
   return (
     <>
       <View style={styles.basicLayout}>
@@ -22,7 +25,7 @@ const Search = () => {
           <Text style={styles.text}>Your order will be delivered soon</Text>
         </View>
       </View>
-      <CButton title={'Continue Shopping'} />
+      <CButton title={'Continue Shopping'} pressFunction={pressFunction} />
     </>
   );
 };
@@ -63,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Search;
+export default OrderComplete;

@@ -5,14 +5,18 @@ import BacknHeading from '../widgets/BacknHeading';
 import Found from '../widgets/Found';
 import NotFound from '../widgets/NotFound';
 
-const Search = () => {
+const Search = ({route, navigation}) => {
+  const backButton = () => {
+    navigation.goBack();
+  };
+  const {query} = route.params;
   return (
     <View style={styles.basicLayout}>
       <View style={styles.view1}>
-        <BacknHeading title={'Spicy Chicken'} />
+        <BacknHeading title={query} backButton={backButton} />
       </View>
       <View style={styles.view2}>
-        <Found />
+        {query === '' ? <NotFound /> : <Found />}
       </View>
     </View>
   );

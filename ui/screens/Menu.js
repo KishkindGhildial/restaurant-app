@@ -14,7 +14,7 @@ import policy from '../../assets/policy.png';
 import security from '../../assets/security.png';
 import arrow from '../../assets/arrow.png';
 
-export default UserAuthenticationPage = () => {
+export default Menu = ({navigation}) => {
   const styles = StyleSheet.create({
     basicLayout: {
       backgroundColor: '#ff3100',
@@ -82,14 +82,27 @@ export default UserAuthenticationPage = () => {
       alignItems: 'center',
       width: 200,
     },
+    forYou: {
+      width: '100%',
+      height: '100%',
+    },
   });
   const [selected, setSelected] = useState(1);
-
+  // const pressFunction = () => {
+  //   navigation.goBack();
+  // };
   return (
     <View style={styles.basicLayout}>
-      <View style={styles.main}>
-        <ForYou />
-      </View>
+      <Pressable
+        onPress={() => navigation.navigate('ForYou')}
+        style={styles.forYou}
+        children={() => (
+          <View style={styles.main}>
+            <ForYou />
+          </View>
+        )}
+      />
+
       <View style={styles.menu}>
         <View style={styles.menu1}>
           <Pressable

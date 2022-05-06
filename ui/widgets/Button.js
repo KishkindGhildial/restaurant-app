@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
-const Button = ({title}) => {
+const Button = ({title, pressFunction}) => {
   return (
     <View style={styles.buttonView}>
       {/* <Pressable
@@ -15,6 +15,9 @@ const Button = ({title}) => {
         <Text style={styles.buttonText}>Get Started</Text>
       </Pressable> */}
       <Pressable
+        onPress={() => {
+          pressFunction();
+        }}
         children={({pressed}) => (
           <Text
             style={[{color: pressed ? '#4f4f4f' : '#fff'}, styles.buttonText]}>

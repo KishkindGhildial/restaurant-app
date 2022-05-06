@@ -1,33 +1,93 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
-  Button,
+  Image,
   Text,
   ScrollView,
   TextInput,
 } from 'react-native';
 import MFoodCard from '../widgets/MFoodCard';
 import BacknHeading from '../widgets/BacknHeading';
+import MainHeader from '../widgets/MainHeader';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import {NativeScreenNavigationContainer} from 'react-native-screens';
+import ForYouFooter from '../widgets/ForYouFooter';
+import searchIcon from '../../assets/search.png';
+import Carousel from '../widgets/Carousel';
 
-const Search = () => {
+const ForYou = ({navigation}) => {
+  const axios = require('axios');
   const [search, setSearch] = React.useState(null);
   const [selected, setSelected] = React.useState(1);
+  const menuClick = () => {
+    // navigation.toggleDrawer();
+    navigation.navigate('Menu');
+  };
+  const cartClick = () => {
+    navigation.navigate('Cart');
+  };
+  const pressFunction = component => {
+    if (component === 'History') {
+      navigation.navigate(component, {
+        id: 1,
+      });
+    } else {
+      navigation.navigate(component);
+    }
+  };
+
+  // const fetchData = async () => {
+  //   try {
+  //     const res = await fetch('www.themealdb.com/api/json/v1/1/categories.php');
+  //     const data = await res.json();
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  async function fetchData() {
+    try {
+      const response = await axios.get('https://fakestoreapi.com/products');
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <View style={styles.basicLayout}>
       <View style={styles.view1}>
-        <BacknHeading title={'For You'} />
+        <MainHeader
+          title={'For You'}
+          menuClick={menuClick}
+          cartClick={cartClick}
+        />
       </View>
       <View style={styles.view2}>
         <Text style={styles.heading}>Delicious {'\n'}food for you</Text>
         <View style={styles.inputView}>
-          <TextInput
-            style={styles.input}
-            onChangeText={setSearch}
-            value={search}
-            placeholder="Search"
-          />
+          <View style={styles.inputInnerView}>
+            <Pressable
+              onPress={() =>
+                navigation.navigate('Search', {
+                  query: search,
+                })
+              }
+              children={() => <Image source={searchIcon} />}
+            />
+            <TextInput
+              style={styles.input}
+              onChangeText={setSearch}
+              value={search}
+              placeholder="Search"
+            />
+          </View>
         </View>
         <ScrollView
           horizontal={true}
@@ -153,7 +213,7 @@ const Search = () => {
             <Text style={styles.heading}>Delicious {'\n'}food for you</Text>
           </View>
         </ScrollView> */}
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        {/* <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           <View style={styles.foodCardView}>
             <MFoodCard />
             <MFoodCard />
@@ -163,7 +223,9 @@ const Search = () => {
             <MFoodCard />
             <MFoodCard />
           </View>
-        </ScrollView>
+        </ScrollView> */}
+        <Carousel />
+        <ForYouFooter pressFunction={pressFunction} />
       </View>
     </View>
   );
@@ -219,7 +281,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
   },
-  input: {
+  inputInnerView: {
     backgroundColor: '#eee',
     width: 314,
     height: 60,
@@ -227,10 +289,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     fontSize: 17,
     marginBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   inputView: {
     width: '100%',
     alignItems: 'center',
+  },
+  input: {
+    width: 230,
   },
   loginOption: {
     flexDirection: 'row',
@@ -248,4 +316,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Search;
+export default ForYou;
