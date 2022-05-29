@@ -4,8 +4,9 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import {clearErrors} from 'react-native/Libraries/LogBox/Data/LogBoxData';
 import cart from '../../assets/shopping-cart.png';
 import sideBar from '../../assets/sidebar.png';
+import chevron from '../../assets/chevron.png';
 
-const MainHeader = ({menuClick, cartClick}) => {
+const FoodHeader = ({menuClick, cartClick}) => {
   return (
     <View style={styles.view}>
       <View style={styles.header}>
@@ -13,7 +14,7 @@ const MainHeader = ({menuClick, cartClick}) => {
           onPress={() => {
             cartClick();
           }}
-          children={() => <Image source={cart} />}
+          children={() => <Image source={chevron} />}
         />
         <View style={styles.headingView}>
           <Pressable
@@ -54,4 +55,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainHeader;
+export default FoodHeader;

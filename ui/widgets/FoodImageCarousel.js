@@ -9,11 +9,10 @@ import {
   Platform,
 } from 'react-native';
 import MFoodCard from './MFoodCard';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 const {width: screenWidth} = Dimensions.get('window');
 
-const MyCarousel = ({Entries, itemClick}) => {
+const MyCarousel = ({Entries}) => {
   const [entries, setEntries] = useState([]);
   const carouselRef = useRef(null);
 
@@ -28,28 +27,17 @@ const MyCarousel = ({Entries, itemClick}) => {
 
   const renderItem = ({item, index}) => {
     return (
-      <Pressable
-        onPress={() => {
-          itemClick(item.id);
-        }}
-        children={() => (
-          <View style={styles.carousel}>
-            <MFoodCard
-              food={item.image}
-              heading={item.title}
-              chain={item.restaurantChain}
-            />
-          </View>
-        )}
-      />
+      <View style={styles.carousel}>
+        <Image source={{uri: item.image}} />
+      </View>
     );
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.seeMoreContainer} onPress={goForward}>
+      {/* <TouchableOpacity style={styles.seeMoreContainer} onPress={goForward}>
         <Text style={styles.seeMore}>See More</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <Carousel
         ref={carouselRef}
         sliderWidth={screenWidth}

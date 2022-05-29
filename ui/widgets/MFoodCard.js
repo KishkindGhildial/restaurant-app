@@ -3,13 +3,18 @@ import {View, StyleSheet, Text, TextInput, Image} from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import food1 from '../../assets/mfood1.png';
 
-const MFoodCard = () => {
+const MFoodCard = ({food, heading, chain}) => {
   return (
     <View style={styles.outerView}>
       <View style={styles.innerView}>
-        <Image source={food1} style={styles.image} />
-        <Text style={styles.heading}>{`Veggie \n tomato mix`}</Text>
-        <Text style={styles.text}>N1,900</Text>
+        <Image
+          source={{
+            uri: food,
+          }}
+          style={styles.image}
+        />
+        <Text style={styles.heading}>{heading}</Text>
+        <Text style={styles.text}>{chain}</Text>
       </View>
     </View>
   );
@@ -56,6 +61,10 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: -60,
+    borderRadius: 60,
+    height: 140,
+    width: 164,
+    backgroundColor: 'white',
   },
   heading: {
     fontStyle: 'normal',
@@ -64,7 +73,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#000',
     opacity: 0.9,
-    marginTop: -60,
+    marginTop: 20,
   },
   text: {
     fontStyle: 'normal',

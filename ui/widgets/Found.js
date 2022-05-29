@@ -2,24 +2,33 @@ import React, {useState} from 'react';
 import {View, StyleSheet, Text, ScrollView} from 'react-native';
 import FoodCard from './FoodCard';
 
-const Found = () => {
+const Found = ({data}) => {
   return (
     <View style={styles.view}>
       <ScrollView>
         <View style={styles.resultHeader}>
-          <Text style={styles.resultHeading}>Found 6 Results</Text>
+          <Text style={styles.resultHeading}>Found {data.length} Results</Text>
         </View>
         <View style={styles.foodCardView}>
-          <View style={styles.leftFoodCard}>
-            <FoodCard />
-            <FoodCard />
-            <FoodCard />
-          </View>
-          <View style={styles.rightFoodCard}>
-            <FoodCard />
-            <FoodCard />
-            <FoodCard />
-          </View>
+          {data.map(elem =>
+            data.indexOf(elem) % 2 === 0 ? (
+              <View style={styles.leftFoodCard}>
+                <FoodCard
+                  food={elem.image}
+                  heading={elem.title}
+                  key={elem.id}
+                />
+              </View>
+            ) : (
+              <View style={styles.rightFoodCard}>
+                <FoodCard
+                  food={elem.image}
+                  heading={elem.title}
+                  key={elem.id}
+                />
+              </View>
+            ),
+          )}
         </View>
       </ScrollView>
     </View>
@@ -31,15 +40,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     borderRadius: 30,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 9,
-    },
-    shadowOpacity: 0.06,
-    shadowRadius: 11.95,
-    elevation: 18,
-    zIndex: 2,
   },
   resultHeader: {
     alignItems: 'center',
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
-    marginTop: 60,
+    marginTop: 50,
   },
   leftFoodCard: {
     marginTop: 30,

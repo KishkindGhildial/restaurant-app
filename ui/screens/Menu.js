@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import LoginSignup from '../widgets/LoginSignup';
 import Signup from '../widgets/Signup';
 import Login from '../widgets/Login';
@@ -13,13 +13,19 @@ import promo from '../../assets/promo.png';
 import policy from '../../assets/policy.png';
 import security from '../../assets/security.png';
 import arrow from '../../assets/arrow.png';
+import cross from '../../assets/cross.png';
+import {OnNavClickContext} from '../../App';
 
 export default Menu = ({navigation}) => {
   const styles = StyleSheet.create({
     basicLayout: {
       backgroundColor: '#ff3100',
-      flex: 1,
       position: 'relative',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
     },
     main: {
       flex: 1,
@@ -87,132 +93,131 @@ export default Menu = ({navigation}) => {
       height: '100%',
     },
   });
-  const [selected, setSelected] = useState(1);
   // const pressFunction = () => {
   //   navigation.goBack();
   // };
+  const onNavClick = useContext(OnNavClickContext);
   return (
-    <View style={styles.basicLayout}>
-      <Pressable
-        onPress={() => navigation.navigate('ForYou')}
-        style={styles.forYou}
-        children={() => (
-          <View style={styles.main}>
-            <ForYou />
+    <>
+      <View style={styles.basicLayout}>
+        <Pressable
+          onPress={() => {
+            onNavClick();
+          }}
+          style={[{position: 'absolute', top: 70, right: 30, zIndex: 1}]}
+          children={({pressed}) => <Image source={cross} />}
+        />
+        <View style={styles.menu}>
+          <View style={styles.menu1}>
+            <Pressable
+              style={styles.menuOptions}
+              children={({pressed}) => (
+                <View style={styles.mOption}>
+                  <Image source={profile} />
+                  <Text
+                    style={[
+                      {color: pressed ? '#4f4f4f' : '#fff'},
+                      {fontSize: 17},
+                      {fontWeight: '600'},
+                      styles.text,
+                    ]}>
+                    Profile
+                  </Text>
+                </View>
+              )}
+            />
+            <View style={styles.br}></View>
+            <Pressable
+              style={styles.menuOptions}
+              children={({pressed}) => (
+                <View style={styles.mOption}>
+                  <Image source={orders} />
+                  <Text
+                    style={[
+                      {color: pressed ? '#4f4f4f' : '#fff'},
+                      {fontSize: 17},
+                      {fontWeight: '600'},
+                      styles.text,
+                    ]}>
+                    Orders
+                  </Text>
+                </View>
+              )}
+            />
+            <View style={styles.br}></View>
+            <Pressable
+              style={styles.menuOptions}
+              children={({pressed}) => (
+                <View style={styles.mOption}>
+                  <Image source={promo} />
+                  <Text
+                    style={[
+                      {color: pressed ? '#4f4f4f' : '#fff'},
+                      {fontSize: 17},
+                      {fontWeight: '600'},
+                      styles.text,
+                    ]}>
+                    Offer and Promo
+                  </Text>
+                </View>
+              )}
+            />
+            <View style={styles.br}></View>
+            <Pressable
+              style={styles.menuOptions}
+              children={({pressed}) => (
+                <View style={styles.mOption}>
+                  <Image source={policy} />
+                  <Text
+                    style={[
+                      {color: pressed ? '#4f4f4f' : '#fff'},
+                      {fontSize: 17},
+                      {fontWeight: '600'},
+                      styles.text,
+                    ]}>
+                    Privacy Policy
+                  </Text>
+                </View>
+              )}
+            />
+            <View style={styles.br}></View>
+            <Pressable
+              style={styles.menuOptions}
+              children={({pressed}) => (
+                <View style={styles.mOption}>
+                  <Image source={security} />
+                  <Text
+                    style={[
+                      {color: pressed ? '#4f4f4f' : '#fff'},
+                      {fontSize: 17},
+                      {fontWeight: '600'},
+                      styles.text,
+                    ]}>
+                    Security
+                  </Text>
+                </View>
+              )}
+            />
           </View>
-        )}
-      />
-
-      <View style={styles.menu}>
-        <View style={styles.menu1}>
           <Pressable
-            style={styles.menuOptions}
+            style={styles.signout}
             children={({pressed}) => (
-              <View style={styles.mOption}>
-                <Image source={profile} />
+              <View style={styles.sout}>
                 <Text
                   style={[
                     {color: pressed ? '#4f4f4f' : '#fff'},
                     {fontSize: 17},
                     {fontWeight: '600'},
-                    styles.text,
+                    {marginRight: 10},
                   ]}>
-                  Profile
+                  Sign-Out
                 </Text>
-              </View>
-            )}
-          />
-          <View style={styles.br}></View>
-          <Pressable
-            style={styles.menuOptions}
-            children={({pressed}) => (
-              <View style={styles.mOption}>
-                <Image source={orders} />
-                <Text
-                  style={[
-                    {color: pressed ? '#4f4f4f' : '#fff'},
-                    {fontSize: 17},
-                    {fontWeight: '600'},
-                    styles.text,
-                  ]}>
-                  Orders
-                </Text>
-              </View>
-            )}
-          />
-          <View style={styles.br}></View>
-          <Pressable
-            style={styles.menuOptions}
-            children={({pressed}) => (
-              <View style={styles.mOption}>
-                <Image source={promo} />
-                <Text
-                  style={[
-                    {color: pressed ? '#4f4f4f' : '#fff'},
-                    {fontSize: 17},
-                    {fontWeight: '600'},
-                    styles.text,
-                  ]}>
-                  Offer and Promo
-                </Text>
-              </View>
-            )}
-          />
-          <View style={styles.br}></View>
-          <Pressable
-            style={styles.menuOptions}
-            children={({pressed}) => (
-              <View style={styles.mOption}>
-                <Image source={policy} />
-                <Text
-                  style={[
-                    {color: pressed ? '#4f4f4f' : '#fff'},
-                    {fontSize: 17},
-                    {fontWeight: '600'},
-                    styles.text,
-                  ]}>
-                  Privacy Policy
-                </Text>
-              </View>
-            )}
-          />
-          <View style={styles.br}></View>
-          <Pressable
-            style={styles.menuOptions}
-            children={({pressed}) => (
-              <View style={styles.mOption}>
-                <Image source={security} />
-                <Text
-                  style={[
-                    {color: pressed ? '#4f4f4f' : '#fff'},
-                    {fontSize: 17},
-                    {fontWeight: '600'},
-                    styles.text,
-                  ]}>
-                  Security
-                </Text>
+                <Image source={arrow} />
               </View>
             )}
           />
         </View>
-        <Pressable
-          style={styles.signout}
-          children={({pressed}) => (
-            <View style={styles.sout}>
-              <Text
-                style={[
-                  {color: pressed ? '#4f4f4f' : '#fff'},
-                  {fontSize: 17},
-                  {fontWeight: '600'},
-                  {marginRight: 10},
-                ]}>
-                Sign-Out
-              </Text>
-              <Image source={arrow} />
-            </View>
-          )}
-        />
       </View>
-    </View>
+    </>
   );
 };

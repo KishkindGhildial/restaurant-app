@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Button, Text, ScrollView} from 'react-native';
+import {View, StyleSheet, Button, Text, ScrollView, Image} from 'react-native';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import {clearErrors} from 'react-native/Libraries/LogBox/Data/LogBoxData';
+import chevronL from '../../assets/chevronL.png';
 
 const BacknHeading = ({title, backButton}) => {
   return (
@@ -12,14 +13,15 @@ const BacknHeading = ({title, backButton}) => {
             backButton();
           }}
           children={({pressed}) => (
-            <Text
-              style={[
-                {color: pressed ? '#FF9F8F' : '#FF3128'},
-                {fontSize: 16},
-                styles.button,
-              ]}>
-              {`<`}
-            </Text>
+            // <Text
+            //   style={[
+            //     {color: pressed ? '#FF9F8F' : '#FF3128'},
+            //     {fontSize: 16},
+            //     styles.button,
+            //   ]}>
+            //   {`<`}
+            // </Text>
+            <Image source={chevronL} style={styles.button} />
           )}
         />
         <View style={styles.headingView}>

@@ -27,7 +27,7 @@ const Button = ({title, pressFunction}) => {
       />
       <Pressable
         onPress={() => {
-          pressFunction('MyOffers');
+          pressFunction('WishList');
         }}
         children={({pressed}) => <Image source={heartButton} />}
         style={styles.buttonStyle}

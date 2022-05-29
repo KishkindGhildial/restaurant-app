@@ -1,9 +1,9 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import {useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useRoute} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createDrawerNavigator, useDrawerStatus} from '@react-navigation/drawer';
 import {
   SafeAreaView,
   ScrollView,
@@ -27,59 +27,55 @@ import Note from './ui/screens/Note';
 import Cart from './ui/screens/Cart';
 import Profile from './ui/screens/Profile';
 import CustomNav from './ui/widgets/CustomNav';
+import Food from './ui/screens/Food';
+import NavContainer from './ui/screens/NavContainer';
+import MainContent from './ui/screens/MainContent';
+import Header from './ui/screens/Header';
+import FoodPage from './ui/screens/FoodPage';
+import WishList from './ui/screens/WishList';
 
 const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
+export const OnNavClickContext = React.createContext();
 
 const App = () => {
-  [menuToggle, Toggle] = useState(0);
+  [navToggle, setNavToggle] = useState(false);
+  [screenName, setScreenName] = useState('');
+  const onNavClick = () => {
+    setNavToggle(prevState => !prevState);
+  };
+  console.log(navToggle);
   return (
     <>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{headerShown: false}}
-          initialRouteName={'LandingPage'}>
-          <Stack.Screen name="LandingPage" component={LandingPage} />
-          <Stack.Screen
-            name="UserAuthenticationPage"
-            component={UserAuthenticationPage}
-          />
-          <Stack.Screen name="Menu" component={Menu} />
-          <Stack.Screen name="ForYou" component={ForYou} />
-          {/* <Stack.Screen name="Nav" component={Nav} /> */}
-          <Stack.Screen name="Cart" component={Cart} />
-          <Stack.Screen name="Delivery" component={Delivery} />
-          <Stack.Screen name="Payment" component={Payment} />
-          <Stack.Screen name="OrderComplete" component={OrderComplete} />
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="MyOffers" component={MyOffers} />
-          <Stack.Screen name="History" component={History} />
-          <Stack.Screen name="Search" component={Search} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <OnNavClickContext.Provider value={onNavClick}>
+        <NavContainer navToggle={navToggle}>
+          <NavigationContainer>
+            <Stack.Navigator
+              screenOptions={{headerShown: false}}
+              initialRouteName={'LandingPage'}>
+              <Stack.Screen name="LandingPage" component={LandingPage} />
+              <Stack.Screen
+                name="UserAuthenticationPage"
+                component={UserAuthenticationPage}
+              />
+              <Stack.Screen name="Menu" component={Menu} />
+              <Stack.Screen name="ForYou" component={ForYou} />
+              <Stack.Screen name="Cart" component={Cart} />
+              <Stack.Screen name="Delivery" component={Delivery} />
+              <Stack.Screen name="Payment" component={Payment} />
+              <Stack.Screen name="OrderComplete" component={OrderComplete} />
+              <Stack.Screen name="Profile" component={Profile} />
+              <Stack.Screen name="MyOffers" component={MyOffers} />
+              <Stack.Screen name="History" component={History} />
+              <Stack.Screen name="Search" component={Search} />
+              <Stack.Screen name="Food" component={Food} />
+              <Stack.Screen name="FoodPage" component={FoodPage} />
+              <Stack.Screen name="WishList" component={WishList} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </NavContainer>
+      </OnNavClickContext.Provider>
     </>
   );
 };
-
-function Nav() {
-  return (
-    <Drawer.Navigator
-      initialRouteName="Home"
-      screenOptions={{
-        headerShown: false,
-        activeTintColor: '#fff',
-        itemStyle: {marginVertical: 5},
-      }}
-      drawerContent={props => <CustomNav {...props} />}>
-      <Drawer.Screen
-        name="ForYou"
-        component={ForYou}
-        style={[{paddingTop: 500}]}
-      />
-      <Drawer.Screen name="OrderComplete" component={OrderComplete} />
-      <Drawer.Screen name="Profile" component={Profile} />
-    </Drawer.Navigator>
-  );
-}
 
 export default App;
