@@ -145,7 +145,6 @@
 				A2D73EEF30BD5350582038D0 /* Pods-ResaurantApp-ResaurantAppTests.debug.xcconfig */,
 				2B3CA8BBF1F2E621876BAE21 /* Pods-ResaurantApp-ResaurantAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
